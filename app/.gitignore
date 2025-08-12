@@ -1,1 +1,63 @@
-/build
+# Built application files
+*.apk
+*.aar
+*.ap_
+*.aab
+
+# Files for the ART/Dalvik VM
+*.dex
+
+# Java class files
+*.class
+
+# Generated files
+bin/
+gen/
+out/
+build/
+captures/
+
+# Gradle files
+.gradle/
+local.properties
+.gradle/
+**/build/
+
+# Signing keys (keep them private)
+*.jks
+*.keystore
+*.pem
+
+# Android Studio / IntelliJ IDEA
+.idea/
+*.iml
+.gradle/
+*.ipr
+*.iws
+
+# Keystore
+**/keystore.properties
+
+# Proguard
+proguard/
+
+# Log files
+*.log
+
+# OS-specific files
+.DS_Store
+Thumbs.db
+
+# Kotlin/Java
+*.kt~
+*.java~
+*.bak
+
+# NDK
+obj/
+
+# Lint
+lint/intermediates/
+lint/generated/
+lint/outputs/
+lint/tmp/
