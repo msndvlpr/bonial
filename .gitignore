@@ -12,4 +12,5 @@
 /captures
 .externalNativeBuild
 .cxx
+.dex
 local.properties
