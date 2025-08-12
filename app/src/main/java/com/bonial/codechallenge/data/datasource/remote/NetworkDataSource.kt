@@ -15,19 +15,18 @@ internal class NetworkDataSource(private val clientProvider: suspend () -> HttpC
     suspend fun getAllAdvertisements(): Result<NetworkResponse> =
 
         runCatching<NetworkDataSource, NetworkResponse> {
-            val response = clientProvider().get("https://3vq81.wiremockapi.cloud/advertisements") {
-            //todo val response = clientProvider().get("${GET_ADS_URL}shelf.json") {
+
+            val response = clientProvider().get("${GET_ADS_URL}shelf.json") {
                 headers {
                     append(HttpHeaders.ContentType, "application/json")
                 }
             }
             val jsonString = response.bodyAsText()
-            Timber.d("msn Raw response: $jsonString")
 
             Json.decodeFromString<NetworkResponse>(jsonString)
 
         }.onFailure { error ->
-            println("msn error: $error")
+            Timber.e("json error: $error")
         }
 
 }

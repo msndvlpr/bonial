@@ -1,7 +1,6 @@
 package com.bonial.codechallenge
 
 import android.app.Application
-import com.facebook.shimmer.BuildConfig
 import dagger.hilt.android.HiltAndroidApp
 import timber.log.Timber
 

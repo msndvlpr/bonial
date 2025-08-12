@@ -13,7 +13,6 @@ data class NetworkResponse(
     @SerialName("_links")
     val links: Links? = Links(),
 
-    @SerialName("page")
     val page: Page? = Page()
 
 )

@@ -5,9 +5,8 @@ import kotlinx.serialization.SerialName
 
 
 @Serializable
-data class Self (
+data class Self(
 
-  @SerialName("href" )
-  val href : String? = null
+    val href: String? = null
 
 )

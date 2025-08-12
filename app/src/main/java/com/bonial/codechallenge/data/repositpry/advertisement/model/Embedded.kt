@@ -8,6 +8,6 @@ import kotlinx.serialization.SerialName
 data class Embedded (
 
   @SerialName("contents")
-  val contentItems : ArrayList<ContentItem> = arrayListOf()
+  val contentItems : List<ContentItem> = listOf()
 
 )

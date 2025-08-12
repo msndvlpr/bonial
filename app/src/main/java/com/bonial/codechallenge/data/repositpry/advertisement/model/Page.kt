@@ -7,16 +7,12 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class Page(
 
-    @SerialName("size")
     val size: Int? = null,
 
-    @SerialName("totalElements")
     val totalElements: Int? = null,
 
-    @SerialName("totalPages")
     val totalPages: Int? = null,
 
-    @SerialName("number")
     val number: Int? = null
 
 )

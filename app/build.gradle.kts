@@ -21,6 +21,7 @@ android {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
+
     buildTypes {
         release {
             isMinifyEnabled = false
@@ -45,13 +46,14 @@ android {
 
 dependencies {
 
-    // android and life-cycle
     implementation(libs.androidx.activity.compose)
     implementation(platform(libs.androidx.compose.bom))
     implementation(libs.androidx.ui)
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
+    implementation(libs.androidx.ui.test.junit4.android)
+    implementation(libs.androidx.lifecycle.runtime.testing.android)
     androidTestImplementation(platform(libs.androidx.compose.bom))
     androidTestImplementation(libs.androidx.ui.test.junit4)
     debugImplementation(libs.androidx.ui.tooling)
@@ -62,11 +64,9 @@ dependencies {
     implementation(libs.androidx.lifecycle.viewmodel.ktx)
     implementation(libs.androidx.fragment.ktx)
     implementation(libs.androidx.lifecycle.viewmodel.compose)
-    // kotlin x serialization
     implementation(libs.kotlinx.serialization.json)
     implementation(libs.kotlin.reflect)
     testImplementation(libs.kotlinx.coroutines.test)
-    // testing & mock
     implementation(libs.androidx.junit.ktx)
     testImplementation(libs.kotlin.test)
     testImplementation(libs.mockk)
@@ -74,18 +74,11 @@ dependencies {
     testImplementation(libs.mockk.agent)
     testImplementation(libs.ktor.client.mock)
     testImplementation(libs.hilt.android.testing)
+    testImplementation(libs.turbine)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
-    // shimmer
-    implementation(libs.shimmer)
-    // coil
     implementation(libs.coil.compose)
     implementation(libs.coil.network.okhttp)
-    // navigation
-    implementation(libs.androidx.navigation.ui.ktx)
-    implementation(libs.androidx.navigation.fragment)
-    implementation(libs.androidx.navigation.fragment.ktx)
-    // ktor
     implementation(libs.ktor.client.core)
     implementation(libs.ktor.client.okhttp)
     implementation(libs.ktor.client.content.negotiation)
@@ -93,10 +86,11 @@ dependencies {
     implementation(libs.ktor.client.android)
     implementation(libs.ktor.client.logging)
     implementation(libs.ktor.client.auth)
-    // timber
     implementation(libs.timber)
-    // hilt
     implementation(libs.hilt.android)
     implementation(libs.androidx.hilt.navigation.compose)
     kapt(libs.hilt.android.compiler)
+    androidTestImplementation(libs.ui.test.junit4)
+    debugImplementation(libs.ui.test.manifest)
+    kaptAndroidTest(libs.hilt.android.compiler.v248)
 }

@@ -7,10 +7,8 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class ExternalTracking(
 
-    @SerialName("impression")
-    val impression: ArrayList<String> = arrayListOf(),
+    val impression: List<String> = listOf(),
 
-    @SerialName("click")
-    val click: ArrayList<String> = arrayListOf()
+    val click: List<String> = listOf()
 
 )

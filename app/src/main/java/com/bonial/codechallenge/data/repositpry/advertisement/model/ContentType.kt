@@ -6,7 +6,13 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 enum class ContentType {
-  @SerialName("brochure") BROCHURE,
-  @SerialName("brochurePremium") BROCHURE_PREMIUM,
-  @SerialName("superBannerCarousel") SUPER_BANNER_CAROUSEL
+
+  @SerialName("brochure")
+  BROCHURE,
+
+  @SerialName("brochurePremium")
+  BROCHURE_PREMIUM,
+
+  @SerialName("superBannerCarousel")
+  SUPER_BANNER_CAROUSEL
 }

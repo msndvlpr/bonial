@@ -6,6 +6,5 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class ContentBadge(
 
-    @SerialName("name")
     val name: String? = null
 )

@@ -1,5 +1,6 @@
 package com.bonial.codechallenge.data.repositpry.advertisement.model
 
+import com.bonial.codechallenge.data.repositpry.advertisement.ContentVariantSerializer
 import kotlinx.serialization.Polymorphic
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
@@ -8,22 +9,18 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class ContentItem(
 
-    @SerialName("placement")
     val placement: String? = null,
 
-    @SerialName("adFormat")
     val adFormat: String? = null,
 
-    @SerialName("contentFormatSource")
     val contentFormatSource: String? = null,
 
-    @SerialName("contentType")
     val contentType: ContentType? = null,
 
-    @SerialName("content")
-    val content: BrochureContent? = null,
+    //polymorphic attribute
+    @Serializable(with = ContentVariantSerializer::class)
+    val content: ContentVariant? = null,
 
-    @SerialName("externalTracking")
     val externalTracking: ExternalTracking? = ExternalTracking()
 
 )

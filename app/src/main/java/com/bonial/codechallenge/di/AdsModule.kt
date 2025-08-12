@@ -1,7 +1,5 @@
 package com.bonial.codechallenge.di
 
-import android.annotation.SuppressLint
-import com.bonial.codechallenge.BuildConfig
 import com.bonial.codechallenge.data.datasource.remote.NetworkDataSource
 import dagger.Module
 import dagger.Provides
@@ -19,9 +17,7 @@ import io.ktor.serialization.kotlinx.json.json
 import kotlinx.serialization.json.Json
 import timber.log.Timber
 import javax.inject.Singleton
-import javax.net.ssl.SSLContext
-import javax.net.ssl.TrustManager
-import javax.net.ssl.X509TrustManager
+
 
 @Module
 @InstallIn(SingletonComponent::class)
@@ -37,32 +33,16 @@ class AdsModule {
     @Singleton
     fun provideKtorClient(): HttpClient {
         val client = HttpClient(Android) {
-            /*engine {
-                // Accept all certs in debug mode because of SSL certificate exception
-                if (BuildConfig.DEBUG) {
-
-                    val trustAllCerts = arrayOf<TrustManager>(object : X509TrustManager {
-                        override fun checkClientTrusted(chain: Array<out java.security.cert.X509Certificate>?, authType: String?) {}
-                        override fun checkServerTrusted(chain: Array<out java.security.cert.X509Certificate>?, authType: String?) {}
-                        override fun getAcceptedIssuers(): Array<java.security.cert.X509Certificate> = arrayOf()
-                    })
-
-                    val sslContext = SSLContext.getInstance("TLS")
-                    sslContext.init(null, trustAllCerts, java.security.SecureRandom())
-                }
-
-            }*/
             expectSuccess = true
 
             install(ContentNegotiation) {
                 json(Json {
                     isLenient = true
                     ignoreUnknownKeys = true
-                    //coerceInputValues = true
                 })
             }
             install(HttpTimeout) {
-                requestTimeoutMillis = 15000 // Max time for the entire request
+                requestTimeoutMillis = 5000 // Max time for the entire request
                 connectTimeoutMillis = 5000 // Timeout for establishing a connection
                 socketTimeoutMillis = 5000 // Timeout for socket read/write
             }

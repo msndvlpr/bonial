@@ -5,22 +5,17 @@ import kotlinx.serialization.Serializable
 
 
 @Serializable
-data class SuperBannerCarouselSubContent(
-    @SerialName("id")
+data class CarouselSubContent(
+
     val id: String? = null,
 
-    @SerialName("publisher")
     val publisher: Publisher? = Publisher(),
 
-    @SerialName("publishedFrom")
     val publishedFrom: String? = null,
 
-    @SerialName("publishedUntil")
     val publishedUntil: String? = null,
 
-    @SerialName("clickUrl")
     val clickUrl: String? = null,
 
-    @SerialName("imageUrl")
     val imageUrl: String? = null
     )

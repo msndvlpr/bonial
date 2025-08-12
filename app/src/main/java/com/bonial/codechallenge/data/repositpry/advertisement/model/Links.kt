@@ -7,7 +7,6 @@ import kotlinx.serialization.SerialName
 @Serializable
 data class Links (
 
-  @SerialName("self" )
   val self : Self? = Self()
 
 )
