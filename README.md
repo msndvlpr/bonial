@@ -9,13 +9,6 @@ It demonstrates clean architecture principles, lifecycle-aware UI updates, and m
 ## 🏗 Architecture
 We follow the **MVVM (Model–View–ViewModel)** pattern:
 
-##  Application Features
-This application fetches the list of retailer advertisements and shows them in a single page as brochures.
-As requested in the requirement document, it shows only the brochures with type BROCHURE and BROCHURE_PREMIUM and filters the items closer than 5 km.
-So a menu has been added to let the user change the brochure type filter between BROCHURE and BROCHURE_PREMIUM.
-Additionally in the menu, a switch button has been added for Dark/Light theme change, as it has been implemented.
-
-
 ```
 UI (View) <--> ViewModel <--> Repository <--> Data Source (Network)
 ```
@@ -36,6 +29,16 @@ UI (View) <--> ViewModel <--> Repository <--> Data Source (Network)
 
 - **Data Sources**  
   - **Network**: Http Rest API request and response handling.
+
+---
+
+## 📜 Application Features
+- This application fetches the list of retailer advertisements with their images and shows them in a single screen as brochures.
+- As requested in the requirement document, it shows only the brochures with type BROCHURE and BROCHURE_PREMIUM and filters the items closer than 5 km.
+- So a menu has been added to let the user change the brochure type filter between BROCHURE and BROCHURE_PREMIUM.
+- Additionally in the menu, a switch button has been added for Dark/Light theme change, as it has been implemented.
+- It supports different UI state handling based on the response received from Rest API, so it initially shows LOADING, and then SUCCESS state which shows the brochure items, or ERROR in case of any failure.
+- As requested in the requirements, it supports screen rotation and the layout changes accordingly to fit the new orientation, and each item type also must be shown differently if it is BROCHURE or BROCHURE_PREMIUM.
 
 ---
 
@@ -81,7 +84,7 @@ app/
 ## 🚀 Getting Started
 
 ### Prerequisites
-- **Android Studio** Giraffe or newer
+- **Android Studio** Meerkat or newer
 - **Kotlin** 1.9+
 - **Gradle** 8.x
 - **Minimum SDK**: 24+
@@ -99,12 +102,8 @@ app/
 ---
 
 ## 🔮 Future Improvements
-- Add pagination support in the repository.
-- Implement dark mode toggle using DataStore.
+Due to the time constraints and also the API limitations, the following could also have been implemented:
+- Add pagination support for in the repository and also view when the API supports.
+- Add more filtering possibilities for the user when the API supports it.
 - Add offline-first caching strategy with Room.
-- Improve test coverage for edge cases.
-
----
-
-## 📜 License
-This project is licensed under the MIT License — see the [LICENSE](LICENSE) file for details.
+- Improve test coverage for all available units/widgets and also edge case.
