@@ -39,6 +39,7 @@ UI (View) <--> ViewModel <--> Repository <--> Data Source (Network)
 - Additionally in the menu, a switch button has been added for Dark/Light theme change, as it has been implemented.
 - It supports different UI state handling based on the response received from Rest API, so it initially shows LOADING, and then SUCCESS state which shows the brochure items, or ERROR in case of any failure.
 - As requested in the requirements, it supports screen rotation and the layout changes accordingly to fit the new orientation, and each item type also must be shown differently if it is BROCHURE or BROCHURE_PREMIUM.
+- User can also like/dislike a brochure by taping on the heart icon, but it won't permanently save as the API doesn't support.
 
 ---
 
@@ -107,3 +108,5 @@ Due to the time constraints and also the API limitations, the following could al
 - Add more filtering possibilities for the user when the API supports it.
 - Add offline-first caching strategy with Room.
 - Improve test coverage for all available units/widgets and also edge case.
+- Provide more previews for different UI widgets and layouts.
+- Provide some methods as extension functions for better usability in the project.
