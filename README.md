@@ -1,7 +1,7 @@
 # 📄 Android Jetpack Compose MVVM Project
 
 ## 📌 Overview
-This project is an **Android application** built using **Jetpack Compose** and **MVVM architecture**.  
+This project as part of a technical assessment, is an **Android application** built using **Jetpack Compose** and **MVVM architecture**.  
 It demonstrates clean architecture principles, lifecycle-aware UI updates, and modular code organization, making it easy to maintain and extend.
 
 ---
@@ -9,27 +9,33 @@ It demonstrates clean architecture principles, lifecycle-aware UI updates, and m
 ## 🏗 Architecture
 We follow the **MVVM (Model–View–ViewModel)** pattern:
 
+##  Application Features
+This application fetches the list of retailer advertisements and shows them in a single page as brochures.
+As requested in the requirement document, it shows only the brochures with type BROCHURE and BROCHURE_PREMIUM and filters the items closer than 5 km.
+So a menu has been added to let the user change the brochure type filter between BROCHURE and BROCHURE_PREMIUM.
+Additionally in the menu, a switch button has been added for Dark/Light theme change, as it has been implemented.
+
+
 ```
-UI (View) <--> ViewModel <--> Repository <--> Data Sources (Network / Local)
+UI (View) <--> ViewModel <--> Repository <--> Data Source (Network)
 ```
 
 - **UI (View)**  
   - Built entirely with **Jetpack Compose**.
-  - Uses `StateFlow` or `LiveData` to observe state from the `ViewModel`.
+  - Uses `StateFlow` to observe state from the `ViewModel`.
   - Displays state using composables that are lifecycle-aware via `collectAsStateWithLifecycle()`.
 
 - **ViewModel**  
-  - Holds UI state and business logic.
-  - Exposes state as `StateFlow` or `LiveData` to the UI.
+  - Holds UI state and light weight UI logic.
+  - Exposes state as `StateFlow` to the UI.
   - Receives dependencies via **Hilt** (dependency injection).
 
 - **Repository**  
-  - Handles data operations and abstracts data sources.
-  - Coordinates between local (Room database, DataStore) and remote (Retrofit, Ktor) sources.
+  - Fetches data from datasource and handles business logic.
+  - Coordinates between datasource and the view model layers.
 
 - **Data Sources**  
-  - **Network**: API requests and responses.
-  - **Local**: Caching and persistence.
+  - **Network**: Http Rest API request and response handling.
 
 ---
 
@@ -37,36 +43,37 @@ UI (View) <--> ViewModel <--> Repository <--> Data Sources (Network / Local)
 - **UI**: [Jetpack Compose](https://developer.android.com/jetpack/compose)  
 - **Architecture**: MVVM + Clean Architecture principles  
 - **Dependency Injection**: [Hilt](https://dagger.dev/hilt/)  
-- **Networking**: Retrofit / Ktor (configurable)  
-- **Coroutines & Flow**: Asynchronous programming  
+- **Networking**: Ktor
+- **Coroutines & Flow**: Asynchronous and reactive programming  
 - **State Management**: `StateFlow` + `collectAsStateWithLifecycle()`  
 - **Testing**:  
   - Unit Tests: JUnit + MockK  
   - UI Tests: Compose UI Test  
-- **Image Loading**: Coil (if needed)  
-- **Persistence**: Room / DataStore (optional)  
+- **Image Loading**: Coil 
 
 ---
 
-## 📂 Project Structure
+## 📂 Overall Project Structure
 ```
 app/
  ├── di/                  # Hilt modules for dependency injection
  ├── ui/                  # UI screens and composables
- │    ├── screen_name/
- │    │    ├── ScreenNameScreen.kt
- │    │    ├── ScreenNameViewModel.kt
- │    │    ├── components/
- │    │    └── ScreenNameUiState.kt
+ │    ├── home/
+ │    │    ├── BrochureScreen.kt
+ │    │    ├── BrochureViewModel.kt
+ │    │    ├── ErrorScreen.kt
+ │    │    ├── widget/
+ │    │    ├── model/
+ │    │    ├── theme/
+ │    │    └── ViewState.kt
  ├── data/
- │    ├── repository/     # Repository implementations
- │    ├── remote/         # Network API interfaces
- │    ├── local/          # Database, DataStore
- │    └── model/          # Data models (DTOs, entities)
- ├── domain/              # Optional: Use cases, domain models
- ├── utils/               # Helper classes and extensions
- ├── MainActivity.kt
- └── App.kt               # Application class
+ │    ├── repository/                 # Repository implementations
+ │         └── advertisement/         # Handling advertisement data
+ │                └── model/          # Data models (DTOs, entities)
+ │           
+ │    ├── datasource/                 # Datasource implementations
+ │         └── remote/                # Network Rest API 
+ └── MainActivity.kt
 ```
 
 ---
@@ -83,40 +90,11 @@ app/
 ### Setup
 1. Clone this repository:
    ```bash
-   git clone https://github.com/yourusername/yourproject.git
+   git clone https://github.com/msndvlpr/bonial.git
    ```
 2. Open the project in **Android Studio**.
 3. Sync Gradle to download dependencies.
 4. Build and run the app on an emulator or device.
-
----
-
-## 📌 Usage Example (UI Flow)
-```kotlin
-@Composable
-fun ExampleScreen(viewModel: ExampleViewModel = hiltViewModel()) {
-    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
-
-    when (uiState) {
-        is UiState.Loading -> CircularProgressIndicator()
-        is UiState.Success -> Text("Data: ${(uiState as UiState.Success).data}")
-        is UiState.Error -> Text("Something went wrong")
-    }
-}
-```
-
----
-
-## 🧪 Running Tests
-**Unit tests:**
-```bash
-./gradlew test
-```
-
-**UI tests:**
-```bash
-./gradlew connectedAndroidTest
-```
 
 ---
 
