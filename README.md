@@ -110,3 +110,4 @@ Due to the time constraints and also the API limitations, the following could al
 - Improve test coverage for all available units/widgets and also edge case.
 - Provide more previews for different UI widgets and layouts.
 - Provide some methods as extension functions for better usability in the project.
+- Provide some KDOC commenting for better developer understanding and maintainability.

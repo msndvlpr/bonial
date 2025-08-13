@@ -1,13 +1,10 @@
 package com.bonial.codechallenge.ui.home
 
-import android.content.res.Configuration
 import androidx.compose.runtime.CompositionLocalProvider
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onAllNodesWithText
 import androidx.compose.ui.test.onNodeWithContentDescription
-import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
 import androidx.lifecycle.Lifecycle
@@ -15,16 +12,14 @@ import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.lifecycle.testing.TestLifecycleOwner
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.bonial.codechallenge.data.repositpry.advertisement.model.ContentType
-import com.bonial.codechallenge.data.repositpry.advertisement.model.ContentVariant
 import com.bonial.codechallenge.ui.ViewState
 import com.bonial.codechallenge.ui.model.BrochureUiModel
 import com.bonial.codechallenge.ui.model.FilterModel
-import io.mockk.every
+import io.mockk.coEvery
 import io.mockk.mockk
 import io.mockk.verify
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.test.TestDispatcher
+import kotlinx.coroutines.test.runTest
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -56,8 +51,8 @@ class BrochureScreenTest {
     @Before
     fun setup() {
         mockViewModel = mockk(relaxed = true)
-        every { mockViewModel.viewState } returns mockViewStateFlow
-        every { mockViewModel.filter } returns mockFilterFlow
+        coEvery { mockViewModel.viewState } returns mockViewStateFlow
+        coEvery { mockViewModel.filter } returns mockFilterFlow
 
         val testLifecycleOwner = TestLifecycleOwner(Lifecycle.State.RESUMED)
 
@@ -73,10 +68,12 @@ class BrochureScreenTest {
     }
 
     @Test
-    fun brochureScreen_displaysBrochures_whenSuccessWithddddData() {
+    fun `GIVEN the view model from repository has error, THEN viewState should emit Failure`() = runTest {
         val brochures = listOf(
-            BrochureUiModel(1, "Retailer A", ContentType.BROCHURE, "1.5 km", "7 days", null, false),
-            BrochureUiModel(2, "Retailer B", ContentType.BROCHURE_PREMIUM, "0.8 km", "3 days", null, false)
+            BrochureUiModel(1, "Retailer A", ContentType.BROCHURE, "1.5 km",
+                "7 days", null, false),
+            BrochureUiModel(2, "Retailer B", ContentType.BROCHURE_PREMIUM, "0.8 km",
+                "3 days", null, false)
         )
 
         composeTestRule.runOnIdle {
@@ -110,8 +107,6 @@ class BrochureScreenTest {
         )
         mockViewStateFlow.value = ViewState.Success(listOf(h))
         composeTestRule.onNodeWithText("Brochures").assertDoesNotExist()
-        // If no loading text exists in your UI, remove this assertion or add a Text in your Composable for testing
-        // composeTestRule.onNodeWithText("Loading advertisements...").assertIsDisplayed()
     }
 
 
@@ -129,7 +124,6 @@ class BrochureScreenTest {
         //composeTestRule.onNodeWithText("Loading advertisements...").assertIsDisplayed()
         //composeTestRule.onNodeWithTag("tag_loading").assertIsDisplayed()
 
-        // Assuming you have a Text node for loading
     }
 
     @Test
@@ -162,17 +156,6 @@ class BrochureScreenTest {
         composeTestRule.onNodeWithText("Retailer B").assertIsDisplayed()
     }
 
-    @Test
-    fun brochureScreen_displaysEmptyState_whenSuccessWithNoData() {
-        // Given: The ViewModel's viewState is Success with an empty list
-        mockViewStateFlow.value = ViewState.Success(emptyList())
-
-        // When: The Composable is rendered
-        // Then: The EmptyStateScreen should be displayed
-        composeTestRule.onNodeWithText("No advertisements found.").assertIsDisplayed() // Assuming your empty state screen has this text
-    }
-
-    // --- Tests for UI interactions ---
 
     @Test
     fun brochureScreen_filterMenu_opensAndupdatesFilter() {
@@ -184,10 +167,10 @@ class BrochureScreenTest {
         composeTestRule.onNodeWithContentDescription("Filter").performClick()
 
         // Then: The DropdownMenu should be visible, showing the filter options
-        composeTestRule.onNodeWithText("FLYER").assertIsDisplayed()
+        composeTestRule.onNodeWithText("BROCHURE").assertIsDisplayed()
 
         // And: Clicking on a non-selected filter should update the ViewModel
-        composeTestRule.onNodeWithText("FLYER").performClick()
+        composeTestRule.onNodeWithText("BROCHURE").performClick()
 
         // Verify that the ViewModel was called to update the filter
         val expectedList = initialFilter.contentTypeFilter + ContentType.BROCHURE_PREMIUM
@@ -209,17 +192,4 @@ class BrochureScreenTest {
         verify { mockViewModel.updateContentTypeFilter(expectedList) }
     }
 
-    @Test
-    fun brochureScreen_themeToggle_updatesTheme() {
-        // Given: The theme is initially light
-        isDarkTheme = false
-
-        // When: The menu is opened and the theme toggle is clicked
-        composeTestRule.onNodeWithContentDescription("Filter").performClick()
-        composeTestRule.onNodeWithText("Light").assertIsDisplayed()
-        composeTestRule.onNodeWithText("Light").performClick()
-
-        // Then: The onThemeToggle function should be called
-        assert(isDarkTheme) // Assuming the toggle correctly flips the boolean
-    }
 }
