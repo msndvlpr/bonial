@@ -1,33 +1,24 @@
 package com.bonial.codechallenge.ui.home
 
+import app.cash.turbine.test
 import com.bonial.codechallenge.data.repositpry.advertisement.AdvertisementRepository
-import com.bonial.codechallenge.data.repositpry.advertisement.model.*
+import com.bonial.codechallenge.data.repositpry.advertisement.model.ContentItem
+import com.bonial.codechallenge.data.repositpry.advertisement.model.ContentType
+import com.bonial.codechallenge.data.repositpry.advertisement.model.ContentVariant
+import com.bonial.codechallenge.data.repositpry.advertisement.model.Publisher
 import com.bonial.codechallenge.ui.ViewState
-import kotlinx.coroutines.ExperimentalCoroutinesApi
-import io.mockk.coVerify
+import io.mockk.Runs
+import io.mockk.coEvery
 import io.mockk.every
+import io.mockk.just
 import io.mockk.mockk
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.test.UnconfinedTestDispatcher
-import kotlinx.coroutines.test.resetMain
 import kotlinx.coroutines.test.runTest
-import kotlinx.coroutines.test.setMain
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
-import org.junit.rules.TestWatcher
-import org.junit.runner.Description
-import app.cash.turbine.test
-import app.cash.turbine.ReceiveTurbine
-import app.cash.turbine.Turbine
-import app.cash.turbine.awaitItem
-import io.mockk.Runs
-import io.mockk.coEvery
-import io.mockk.just
-import kotlinx.coroutines.test.advanceUntilIdle
 
 
 class BrochureViewModelTest {
